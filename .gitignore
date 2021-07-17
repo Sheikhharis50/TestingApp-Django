@@ -1,0 +1,11 @@
+# cache
+__pycache__
+*.pyc
+*.pyo
+
+# environment files
+.env
+venv/
+
+# vscode
+.vscode
