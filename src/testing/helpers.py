@@ -25,3 +25,18 @@ def parse_dt_str(datetime_str):
             ' (Jan-01-18 10:30pm EST)'.format(datetime_str))
 
     return utc_date
+
+
+def ObjectsListToJSON(objs_list):
+    def objToJson(obj):
+        return obj.values()
+    return list(map(objToJson, objs_list))
+
+
+def SelectFromObj(objs_list, *args):
+    def includes(obj):
+        data = {}
+        for arg in args:
+            data[arg] = obj[arg] if arg in obj else None
+        return data
+    return list(map(includes, objs_list))
