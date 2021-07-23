@@ -7,5 +7,6 @@ __pycache__
 .env
 venv/
 
-# vscode
+# development
 .vscode
+.DS_Store
