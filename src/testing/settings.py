@@ -3,7 +3,7 @@ from dotenv import dotenv_values
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-config = dotenv_values('.env')
+config = dotenv_values('../.env')
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = str(config["SECRET_KEY"])
