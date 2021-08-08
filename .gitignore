@@ -8,5 +8,6 @@ __pycache__
 venv/
 
 # development
-.vscode
+.vscode/
 .DS_Store
+db/
