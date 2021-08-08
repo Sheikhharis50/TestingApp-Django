@@ -2,6 +2,9 @@ import json
 from dateutil.parser import parse
 import pytz
 from django.core import exceptions
+from django.conf import settings
+import logging
+from datetime import datetime
 
 
 def extractBody(request):
@@ -40,3 +43,15 @@ def SelectFromObj(objs_list, *args):
             data[arg] = obj[arg] if arg in obj else None
         return data
     return list(map(includes, objs_list))
+
+
+def getPageData(pno, data_list):
+    offset = settings.PAGE_SIZE * int(pno)
+    return data_list[offset: offset+settings.PAGE_SIZE]
+
+
+def log(message):
+    logging.error(
+        "[%s][ERROR]: %s" %
+        (datetime.now().strftime("%Y-%m-%d %H:%M:%S"), message)
+    )

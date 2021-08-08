@@ -6,7 +6,7 @@ from django.utils.decorators import method_decorator
 from app.models import Question
 from . import forms
 from testing import helpers
-import datetime
+from datetime import date, datetime
 
 
 def index(request):
@@ -22,7 +22,17 @@ class AppView(ListView):
         return super().dispatch(request, *args, **kwargs)
 
     def get(self, request):
-        return JsonResponse(list(self.get_queryset().values()), safe=False)
+        data_list = list(self.get_queryset().values())
+
+        if 'page' in request.GET:
+            page = request.GET.get('page')
+            data_list = helpers.getPageData(page, data_list)
+
+        data = {
+            "size": len(data_list),
+            "list": data_list
+        }
+        return JsonResponse(data, safe=False)
 
     def post(self, request):
         body = helpers.extractBody(request)
@@ -39,33 +49,10 @@ class AppView(ListView):
                     pub_date=parsed_date
                 ))
             else:
+                helpers.log(_form.errors.as_json())
                 return JsonResponse(_form.errors)
 
-        # Bulk Creation
-        # ==============================>
-        t1 = datetime.datetime.now()
-        # Prepare Bulk Data
-
-        # Insert Bulk Data
         Question.objects.bulk_create(data)
-
-        # Measuring Time
-        t2 = datetime.datetime.now()
-        print('\nBulk Creation Took: {}'.format(t2-t1))
-        # ==============================>
-
-        # Individual Creation
-        # ==============================>
-        t1 = datetime.datetime.now()
-
-        # Insert Individual Data
-        for q in data:
-            q.save()
-
-        # Measuring Time
-        t2 = datetime.datetime.now()
-        print('Individual Creation Took: {}\n'.format(t2-t1))
-        # ==============================>
 
         return JsonResponse(data={
             'message': "Saved",
