@@ -5,6 +5,7 @@ services:
     build: .
     command: >
       bash -c "cd src
+      && mkdir -p db
       && python manage.py migrate
       && python manage.py runserver 0.0.0.0:8000"
     volumes:
