@@ -1,6 +1,11 @@
+# development
 .vscode
 docs
-venv
 */db
+
+# environment
+venv
+
+# git
 .git
 .gitignore
