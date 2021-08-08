@@ -1,0 +1,6 @@
+.vscode
+docs
+venv
+*/db
+.git
+.gitignore
