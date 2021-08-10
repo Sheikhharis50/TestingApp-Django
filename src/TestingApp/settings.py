@@ -1,5 +1,6 @@
 import os
 from dotenv import dotenv_values
+from distutils import util
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -9,10 +10,12 @@ config = dotenv_values('../.env')
 SECRET_KEY = str(config["SECRET_KEY"])
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = bool(config["DEBUG"])
+DEBUG = bool(util.strtobool(config["DEBUG"]))
 
-ALLOWED_HOSTS = []
 
+ALLOWED_HOSTS = [
+    '127.0.0.1', 'localhost', 'testserver'
+]
 
 # Application definition
 
@@ -27,9 +30,12 @@ INSTALLED_APPS = [
     # customs
     'app',
 
+    # third-party
+    'debug_toolbar',
 ]
 
 MIDDLEWARE = [
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -39,12 +45,14 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'testing.urls'
+ROOT_URLCONF = 'TestingApp.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'templates')
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -57,7 +65,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'testing.wsgi.application'
+WSGI_APPLICATION = 'TestingApp.wsgi.application'
 
 
 # Database
@@ -66,7 +74,7 @@ WSGI_APPLICATION = 'testing.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join('{}/db/'.format(BASE_DIR), 'testing.sqlite3'),
+        'NAME': os.path.join('{}/db/'.format(BASE_DIR), 'TestingApp.sqlite3'),
     }
 }
 
@@ -124,5 +132,14 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+INTERNAL_IPS = [
+    '127.0.0.1',
+    'localhost'
+]
+
+DEBUG_TOOLBAR_CONFIG = {
+}
+
 # Constants
-PAGE_SIZE = 15
+PAGE_SIZE = int(config["PAGE_SIZE"])
+PROTOCOL = config["PROTOCOL"]

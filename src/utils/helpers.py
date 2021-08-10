@@ -50,8 +50,22 @@ def getPageData(pno, data_list):
     return data_list[offset: offset+settings.PAGE_SIZE]
 
 
-def log(message):
-    logging.error(
-        "[%s][ERROR]: %s" %
-        (datetime.now().strftime("%Y-%m-%d %H:%M:%S"), message)
+def log(message, level="error"):
+    loggers = {
+        'error': logging.error,
+        'warn': logging.warning,
+        'info': logging.info,
+        'debug': logging.debug,
+        'critical': logging.critical,
+    }
+    loggers[level](
+        "[%s][%s]: %s" %
+        (
+            datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            str(level).upper(), str(message)
+        )
     )
+
+
+def getSiteURL(request):
+    return "{}://{}/".format(settings.PROTOCOL, request.META['HTTP_HOST'])
