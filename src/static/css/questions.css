@@ -1,0 +1,5 @@
+.actions-bar {
+    display: flex;
+    justify-content: flex-end;
+    margin-block: 0.5em;
+}

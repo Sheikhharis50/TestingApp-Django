@@ -1,16 +1,21 @@
 from django.shortcuts import render
-from django.http import HttpResponse, JsonResponse
-from django.views.generic import ListView
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework.permissions import AllowAny
+from rest_framework import status
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from app.models import Question
 from . import forms
 from utils import helpers
-from datetime import date, datetime
+from . import serializers
+from rest_framework import generics
+from rest_framework.permissions import IsAdminUser, AllowAny
 
 
-class AppView(ListView):
+class AppView(APIView):
     model = Question
+    permission_classes = [AllowAny]
 
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):
@@ -18,17 +23,19 @@ class AppView(ListView):
         return super().dispatch(request, *args, **kwargs)
 
     def get(self, request):
-        data_list = list(self.get_queryset().values())
+        data_list = list(Question.objects.all().values())
+        data = {}
 
         if 'page' in request.GET:
             page = request.GET.get('page')
-            data_list = helpers.getPageData(page, data_list)
+            size = request.GET.get('size')
+            data_list, has_next = helpers.getPageData(page, size, data_list)
+            data['page'] = page
+            data['size'] = size
+            data['has_next'] = has_next
 
-        data = {
-            "size": len(data_list),
-            "list": data_list
-        }
-        return JsonResponse(data, safe=False, status=200)
+        data.update({"list": data_list})
+        return Response(data, status=status.HTTP_200_OK)
 
     def post(self, request):
         body = helpers.extractBody(request)
@@ -46,37 +53,42 @@ class AppView(ListView):
                 ))
             else:
                 helpers.log(_form.errors.as_json())
-                return JsonResponse(_form.errors)
+                return Response(_form.errors, status=status.HTTP_406_NOT_ACCEPTABLE)
 
         Question.objects.bulk_create(data)
 
-        return JsonResponse(data={
+        return Response(data={
             'message': "Saved",
             "data": helpers.SelectFromObj(
                 body,
                 'question_text',
                 'pub_date'
             )
-        }, status=200)
+        }, status=status.HTTP_200_OK)
 
     def delete(self, request):
         body = helpers.extractBody(request)
 
-        Question. \
-            objects. \
-            all(). \
-            delete() if (
-                'all' in body
-                and type(body['all']) == bool
-                and body['all']
-            ) else None
+        queryset = Question.objects.all()
 
-        Question. \
-            objects. \
-            filter(id__in=body['ids']). \
-            delete() if (
-                'ids' in body
-                and type(body['ids']) == list
-            ) else None
+        if 'all' in body and int(body['all']):
+            queryset.delete()
+        elif 'id' in body:
+            queryset.filter(id=body['id']).delete()
 
-        return JsonResponse(data={'message': "Deleted", }, status=200)
+        return Response(data={'message': "Deleted", }, status=status.HTTP_200_OK)
+
+
+class QuestionAPIView(generics.CreateAPIView):
+    queryset = Question.objects.all()
+    serializer_class = serializers.QuestionSerializer
+    permission_classes = [AllowAny]
+
+    def get(self, request):
+        queryset = self.get_queryset().order_by('-id')
+        serializer = serializers.QuestionSerializer(queryset, many=True)
+        return Response(serializer.data)
+
+    def post(self, request):
+        print(Question.objects.get(id=request.GET.get('id')))
+        return super().post(request)

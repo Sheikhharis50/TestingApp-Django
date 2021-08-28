@@ -29,9 +29,11 @@ INSTALLED_APPS = [
 
     # customs
     'app',
+    'app_orders',
 
     # third-party
     'debug_toolbar',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -56,10 +58,14 @@ TEMPLATES = [
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
+                # defaults
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
+                # customs
+                'TestingApp.context_processors.globals'
             ],
         },
     },
@@ -108,7 +114,7 @@ LOGGING = {
     },
     'root': {
         'handlers': ['console'],
-        'level': 'DEBUG',
+        'level': 'WARNING',
     },
 }
 
@@ -131,6 +137,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    "static",
+]
 
 INTERNAL_IPS = [
     '127.0.0.1',
@@ -140,6 +149,15 @@ INTERNAL_IPS = [
 DEBUG_TOOLBAR_CONFIG = {
 }
 
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated'
+    ]
+}
+
 # Constants
 PAGE_SIZE = int(config["PAGE_SIZE"])
 PROTOCOL = config["PROTOCOL"]
+APP_NAME = 'TestingApp'

@@ -1,0 +1,32 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th><input type="checkbox" class="select-all"></th>
+            <th>Question</th>
+            <th>Publish Date</th>
+        </tr>
+    </thead>
+    <tbody class="table-pages">
+        {% for item in data.list %}
+        <tr>
+            <td>
+                <input type="checkbox" class="checkbox-item" name="question">
+            </td>
+            <td> {{ item.question_text }} </td>
+            <td> {{ item.pub_date }} </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<nav>
+    <ul class="pagination justify-content-end">
+        <li class="page-item {% if data.page <= '0'  %}disabled{% endif %}">
+            <a class="page-link prev-page" href="questions?page={{ data.page }}&&size={{ data.size }}" tabindex="-1">
+                Previous
+            </a>
+        </li>
+        <li class="page-item {% if not data.has_next %}disabled{% endif %}">
+            <a class="page-link next-page" href="questions?page={{ data.page }}&&size={{ data.size }}">Next</a>
+        </li>
+    </ul>
+</nav>

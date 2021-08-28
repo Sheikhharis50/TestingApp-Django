@@ -1,11 +1,25 @@
 {% extends 'base.html' %}
+{% load static %}
 
-{% block title %} 
-    <title>{{ title }} | TestingApp</title>
+{% block title %}
+<title>{{ title }} | TestingApp</title>
 {% endblock title %}
 
+{% block stylesheets %}
+<link rel="stylesheet" href="{% static 'css/questions.css' %}">
+{% endblock stylesheets %}
+
+{% block scripts %}
+<script src="{% static 'js/questions.js' %}"></script>
+{% endblock scripts %}
+
 {% block content %}
-    <textarea name="" id="" cols="30" rows="10">
-        {{ data.list }}
-    </textarea>
+<section class="section">
+    <h1 class="title">Questions</h1>
+    <div class="actions-bar">
+        <button class="btn btn-danger mr-2">Delete</button>
+        <button class="btn btn-success">Add</button>
+    </div>
+    {% include './questions_list.html' %}
+</section>
 {% endblock content %}

@@ -1,0 +1,22 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/">{{ APP_NAME }}</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-between" id="navbarNavDropdown">
+        <form class="form-inline">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+        <ul class="navbar-nav">
+            {% for nav_item in NAV_ITEMS %}
+            <li class="nav-item {% if request.path == nav_item.path %}active{% endif %}">
+                <a class="nav-link" href="{{ nav_item.path }}">
+                    {{ nav_item.label }}
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</nav>

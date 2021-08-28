@@ -1,0 +1,16 @@
+html,
+body {
+    min-height: 100vh;
+}
+
+main {
+    min-height: calc(100vh - calc(72px + 120px)) !important;
+}
+
+p {
+    margin: 0;
+}
+
+section {
+    padding: 2em;
+}
