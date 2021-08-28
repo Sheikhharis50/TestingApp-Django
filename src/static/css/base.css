@@ -14,3 +14,7 @@ p {
 section {
     padding: 2em;
 }
+
+.text-center {
+    text-align: center;
+}

@@ -2,8 +2,12 @@ from django.shortcuts import render
 from utils import requests
 
 
-def index(request):
+def index_view(request):
     return render(request, "base.html")
+
+
+def about_view(request):
+    return render(request, "pages/about.html")
 
 
 def questions_list_view(request):
