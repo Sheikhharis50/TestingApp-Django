@@ -19,5 +19,17 @@ def navigations():
         {
             'label': 'About',
             'path': '/about'
+        },
+        {
+            'label': 'Questions',
+            'path': '/questions'
+        },
+        {
+            'label': 'Orders',
+            'path': '/orders'
+        },
+        {
+            'label': 'EMS',
+            'path': '/ems'
         }
     ]

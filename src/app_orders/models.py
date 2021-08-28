@@ -11,6 +11,7 @@ class Products(models.Model):
     class Meta:
         verbose_name_plural = "products"
         ordering = ['-id']
+        db_table = "products"
 
     def __str__(self):
         return '{} ({}) - {}'.format(self.name, self.quantity, self.price)
@@ -28,6 +29,7 @@ class Orders(models.Model):
         verbose_name_plural = "orders"
         ordering = ['-id']
         get_latest_by = ['id']
+        db_table = "orders"
 
     def __str__(self):
         return '{}'.format(self.order_no)
@@ -46,6 +48,7 @@ class Order_line(models.Model):
     class Meta:
         verbose_name_plural = "order_line"
         ordering = ['-id']
+        db_table = "order_lines"
 
     def pre_save(self, list=[]):
         self.line_id = _get_unique_id(self, "LD", "line_id", list)

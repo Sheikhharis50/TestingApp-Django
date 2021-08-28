@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     # customs
     'app',
     'app_orders',
+    'app_ems',
 
     # third-party
     'debug_toolbar',
@@ -79,8 +80,16 @@ WSGI_APPLICATION = 'TestingApp.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join('{}/db/'.format(BASE_DIR), 'TestingApp.sqlite3'),
+        # SQLite Settings
+        # 'ENGINE': 'django.db.backends.sqlite3',
+        # 'NAME': os.path.join('{}/db/'.format(BASE_DIR), 'TestingApp.sqlite3'),
+
+        # MySQL Settings
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': config["DB_NAME"],
+        'USER': config["DB_USER"],
+        'PASSWORD': config["DB_PASSWORD"],
+        'PORT': config["DB_PORT"],
     }
 }
 
