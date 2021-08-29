@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+<title>{{ title }} | TestingApp</title>
+{% endblock title %}
+
+{% block stylesheets %}
+{% endblock stylesheets %}
+
+{% block scripts %}
+{% endblock scripts %}
+
+{% block content %}
+<section class="section">
+
+    <a href="{{ request.path }}">
+        <h1>{{ title }}</h1>
+    </a>
+    <p>Author - {{ author.name }}</p>
+    <hr /><br />
+
+    <div class="form">
+        {% include 'books/partials/book_form.html' %}
+    </div>
+    <button class="btn btn-success float-start" onclick="return renderHtml('{% url 'book_form' %}', '.form', true)">
+        Add New
+    </button>
+</section>
+{% endblock content %}

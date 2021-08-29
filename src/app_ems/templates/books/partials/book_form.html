@@ -1,0 +1,11 @@
+{% load static %}
+
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="mb-3">
+        {{ formset }}
+    </div>
+    <div class="form-footer">
+        <input class="btn btn-primary float-end" type="submit" value="Submit">
+    </div>
+</form>

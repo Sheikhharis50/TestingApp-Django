@@ -4,6 +4,7 @@ import debug_toolbar
 
 urlpatterns = [
     path('', include('app.urls')),
+    path('ems/', include('app_ems.urls')),
     path('api/', include('api.urls')),
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),

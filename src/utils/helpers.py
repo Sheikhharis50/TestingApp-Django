@@ -19,7 +19,7 @@ def extractBody(request, POST=False):
 
 
 def get_model_fields(model):
-    return model._meta.fields
+    return [f.name for f in model._meta.get_fields()]
 
 
 def parse_dt_str(datetime_str):

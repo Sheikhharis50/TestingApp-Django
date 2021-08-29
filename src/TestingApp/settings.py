@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     # third-party
     'debug_toolbar',
     'rest_framework',
+    'livereload',
 ]
 
 MIDDLEWARE = [
@@ -46,6 +47,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'livereload.middleware.LiveReloadScript',
 ]
 
 ROOT_URLCONF = 'TestingApp.urls'
@@ -68,6 +70,9 @@ TEMPLATES = [
                 # customs
                 'TestingApp.context_processors.globals'
             ],
+            'libraries':{
+                'globals': 'TestingApp.templatetags.globals',
+            }
         },
     },
 ]

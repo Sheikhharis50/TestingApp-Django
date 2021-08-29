@@ -3,7 +3,7 @@ from utils import requests
 
 
 def index_view(request):
-    return render(request, "base.html")
+    return render(request, "pages/home.html")
 
 
 def about_view(request):

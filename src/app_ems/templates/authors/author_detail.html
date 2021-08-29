@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+<title>{{ title }} | TestingApp</title>
+{% endblock title %}
+
+{% block stylesheets %}
+{% endblock stylesheets %}
+
+{% block scripts %}
+{% endblock scripts %}
+
+{% block content %}
+<section class="section">
+    <a href="{{ request.path }}">
+        <h1>{{ title }}</h1>
+    </a>
+    <hr /><br />
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Submit">
+    </form>
+
+    <br>
+
+    {{ books_html|safe }}
+
+</section>
+{% endblock content %}

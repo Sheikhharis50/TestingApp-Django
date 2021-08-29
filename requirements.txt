@@ -2,6 +2,7 @@ appnope==0.1.2
 asgiref==3.4.1
 autopep8==1.5.7
 backcall==0.2.0
+beautifulsoup4==4.9.3
 certifi==2021.5.30
 charset-normalizer==2.0.4
 decorator==5.0.9
@@ -11,6 +12,7 @@ django-debug-toolbar==3.2.1
 django-excel-base==1.0.4
 django-excel-response2==3.0.2
 django-filter==2.4.0
+django-livereload-server==0.3.2
 django-six==1.0.4
 djangorestframework==3.12.4
 idna==3.2
@@ -34,8 +36,10 @@ pytz==2021.1
 requests==2.26.0
 screen==1.0.1
 six==1.16.0
+soupsieve==2.2.1
 sqlparse==0.4.1
 toml==0.10.2
+tornado==6.1
 traitlets==5.0.5
 urllib3==1.26.6
 wcwidth==0.2.5
