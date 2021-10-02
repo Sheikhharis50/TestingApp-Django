@@ -52,7 +52,9 @@ class AppOrdersView(APIView):
                 q['order'] = order.id
                 order_line_form = forms.OrderLineForm(q)
                 if(order_line_form.is_valid()):
-                    line_item = models.Order_line(**order_line_form.cleaned_data)
+                    line_item = models.Order_line(
+                        **order_line_form.cleaned_data
+                    )
                     models.Order_line.pre_save(line_item, data)
                     data.append(line_item)
                 else:
@@ -62,7 +64,14 @@ class AppOrdersView(APIView):
             models.Order_line.objects.bulk_create(data)
         else:
             # Individual insertion
-            pass
+            line_item = body['line_item']
+            line_item['order'] = order.id
+            order_line_form = forms.OrderLineForm(line_item)
+            if(order_line_form.is_valid()):
+                order_line_form.save()
+            else:
+                helpers.log(order_line_form.errors.as_json())
+                return Response(order_line_form.errors, status=status.HTTP_406_NOT_ACCEPTABLE)
 
         return Response(data={
             'message': "Saved",

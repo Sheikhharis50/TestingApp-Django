@@ -1,0 +1,10 @@
+{
+  "scripts": {
+    "dev": "concurrently \"cd src && python manage.py runserver\" \"cd client && npm run dev\"",
+    "client": "cd client && npm run dev",
+    "server": "cd src && python manage.py runserver"
+  },
+  "dependencies": {
+    "concurrently": "^6.2.1"
+  }
+}
