@@ -1,4 +1,3 @@
-import './App.css';
 import React from 'react';
 import makeTheme from './services/makeTheme';
 import Header from './components/Headers';
@@ -9,7 +8,7 @@ function App() {
     <React.Fragment>
       <Header />
       <main>
-        
+
       </main>
       <Footer />
     </React.Fragment>

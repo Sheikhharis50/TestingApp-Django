@@ -1,10 +1,50 @@
 {
-  "scripts": {
-    "dev": "concurrently \"cd src && python manage.py runserver\" \"cd client && npm run dev\"",
-    "client": "cd client && npm run dev",
-    "server": "cd src && python manage.py runserver"
-  },
+  "name": "testingapp",
+  "version": "0.1.0",
+  "private": true,
   "dependencies": {
-    "concurrently": "^6.2.1"
+    "@emotion/react": "^11.4.1",
+    "@emotion/styled": "^11.3.0",
+    "@mui/icons-material": "^5.0.0",
+    "@mui/material": "^5.0.0",
+    "@mui/styled-engine-sc": "^5.0.0",
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^11.2.7",
+    "@testing-library/user-event": "^12.8.3",
+    "concurrently": "^6.2.1",
+    "isomorphic-fetch": "^3.0.0",
+    "node-sass": "^6.0.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-scripts": "4.0.3",
+    "styled-components": "^5.3.1",
+    "web-vitals": "^1.1.2"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
+    "dev:client": "BROWSER=none react-scripts start",
+    "dev:server": "cd server && source venv/bin/activate && cd src && python manage.py runserver",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }

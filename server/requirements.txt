@@ -8,6 +8,7 @@ charset-normalizer==2.0.4
 decorator==5.0.9
 Django==3.2.5
 django-admin==2.0.1
+django-cors-headers==3.10.0
 django-debug-toolbar==3.2.1
 django-excel-base==1.0.4
 django-excel-response2==3.0.2

@@ -1,0 +1,34 @@
+{
+    "all": true
+}
+
+
+{
+    "all": false,
+    "ids": [
+        19
+    ]
+}
+
+
+[
+    {
+        "question_text": "Question # 3",
+        "pub_date": "19-07-2021"
+    },
+    {
+        "question_text": "Question # 4",
+        "pub_date": "19-07-2021"
+    }
+]
+
+[
+  '{{repeat(100)}}',
+  {
+    question_text: '{{lorem(1, "words")}}',
+    pub_date: '{{date(new Date(2020, 0, 1), new Date(), "dd-MM-YYYY")}}',
+    ignore_validation: true
+  }
+]
+
+https://www.json-generator.com/#

@@ -1,0 +1,27 @@
+{
+  "bulk": 1,
+  "client": 1,
+  "status": "",
+  "line_items": [
+    {
+      "quantity": 2,
+      "product": 1
+    },
+    {
+      "quantity": 2,
+      "product": 1
+    },
+    {
+      "quantity": 2,
+      "product": 1
+    },
+    {
+      "quantity": 2,
+      "product": 1
+    },
+    {
+      "quantity": 2,
+      "product": 1
+    }
+  ]
+}
