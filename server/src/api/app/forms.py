@@ -13,7 +13,7 @@ class QuestionsForm(Form):
     pub_date = forms.DateTimeField(
         label='Publish Date',
         input_formats=['%d-%m-%Y'],
-        required=True
+        required=False
     )
 
     def isQuestionExist(self, q_text):

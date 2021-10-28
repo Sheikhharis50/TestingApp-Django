@@ -1,16 +1,39 @@
 from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework.decorators import api_view
 from rest_framework.permissions import AllowAny
 from rest_framework import status
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from app.models import Question
 from . import forms
-from utils import helpers
 from . import serializers
+from utils import helpers
+from handlers.bulk_handler import BulkHandler
 from rest_framework import generics
 from rest_framework.permissions import IsAdminUser, AllowAny
+
+
+@api_view(['POST'])
+def bulk_insert_questions(request):
+    questions = request.data.get('questions')
+    if questions:
+        bh = BulkHandler(chunk_size=10)
+        for q in questions:
+            _form = forms.QuestionsForm(q)
+            if(_form.is_valid()):
+                pub_date = helpers.parse_dt_str(_form.data.get('pub_date'))
+                bh.add(Question(
+                    question_text=_form.data.get('question_text'),
+                    pub_date=pub_date
+                ))
+            else:
+                bh.discard()
+                return Response(data=dict(errors=_form.errors), status=status.HTTP_400_BAD_REQUEST)
+        bh.done()
+        del bh
+    return Response(data={}, status=status.HTTP_200_OK)
 
 
 class AppView(APIView):

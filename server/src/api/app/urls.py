@@ -4,5 +4,6 @@ from . import views
 
 urlpatterns = [
     path('questions', views.AppView.as_view(), name='questions'),
-    path('questions/generic', views.QuestionAPIView.as_view())
+    path('questions/generic', views.QuestionAPIView.as_view()),
+    path('questions/bulk', views.bulk_insert_questions)
 ]
